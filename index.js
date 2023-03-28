@@ -71,14 +71,22 @@ const hangmanStates = [
 =========`,
 ];
 
-const displayGuessSpaces = (arr, word) => {
+const displayGuessSpaces = (guesses, word) => {
   const wordLength = word.length;
   let output = "";
-
-  while (wordLength > 0) {
-    output += " _ ";
-    wordLength -= 1;
+  let wordCopy = "";
+  for (let i = 0; i < wordLength; i++) {
+    if (guesses.includes(word[i])) {
+      wordCopy += `  ${word[i]}  `;
+    } else {
+      wordCopy += "     ";
+    }
+    output += " ___ ";
   }
+  return `
+  ${wordCopy}
+  ${output}
+  `;
 };
 
 const game = () => {
@@ -90,14 +98,17 @@ const game = () => {
     console.log(`
 ${welcomeMessage}
 
-${hangmanStates[0]}
+${hangmanStates[Math.abs(remainingGuesses - 6)]}
 ${inputMessage}
 
+
+${displayGuessSpaces(guessedLetters, randomWord)}
 ${exitReminder}
+${randomWord}
 `);
 
     const guess = prompt(inputMessage);
-    break;
+    guessedLetters.push(guess);
   }
 };
 
