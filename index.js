@@ -16,7 +16,7 @@ const getRandomWord = () => {
 const welcomeMessage = `Welcome to hangman!`;
 const winMessage = (guesses) => {
   return `
-You won with ${guesses} guesses to spare!  You're on a ${winCount} game winning streak.  
+You won with ${guesses} guesses to spare!  You're on a ${winStreak} game winning streak.  
   
 `;
 };
