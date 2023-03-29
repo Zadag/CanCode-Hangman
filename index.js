@@ -55,7 +55,7 @@ const recieveGuess = (guesses) => {
   }
 };
 
-// the isWon function takes an array of characters, a string, and determines whether the characters can from the string.
+// the isWon function takes an array of characters, a string, and determines whether the characters can form the string.
 // Logic is essentially, remove any duplicate letters from the word, remove letters that aren't in the word from the characters,
 // and compare the 2 arrays.  If their contents are the same, then the game is won.
 const isWon = (guesses, word) => {
