@@ -1,6 +1,6 @@
 # CanCode-Hangman
 
-A simple hangman game played in the terminal.
+A simple hangman game played in the terminal for AlbanyCanCode's 2023 JSFundamentals course.
 
 ![Hangman gameplay](tty.gif)
 
