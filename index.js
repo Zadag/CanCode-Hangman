@@ -3,8 +3,11 @@
 import prompt from "readline-sync";
 import wordBank from "./word-bank.js";
 import hangmanStates from "./hangman-states.js";
+import os from "os";
 
 let winCount = 0;
+let winStreak = 0;
+let lossCount = 0;
 
 const getRandomWord = () => {
   return wordBank[Math.floor(Math.random() * wordBank.length)];
@@ -13,7 +16,7 @@ const getRandomWord = () => {
 const welcomeMessage = `Welcome to hangman!`;
 const winMessage = (guesses) => {
   return `
-You won with ${guesses} guesses to spare!  That brings your wincount to ${winCount}.  
+You won with ${guesses} guesses to spare!  You're on a ${winCount} game winning streak.  
   
 `;
 };
@@ -92,7 +95,10 @@ ${exitReminder}
     if (!randomWord.split("").includes(guess)) remainingGuesses -= 1;
     if (isWon(guessedLetters, randomWord)) {
       winCount += 1;
+      winStreak += 1;
       console.log(`
+Total wins: ${winCount}. Total losses: ${lossCount}
+
 ${winMessage(remainingGuesses)}
       `);
       const playAgain = prompt.keyInYN("Would you like to play again?: ");
@@ -101,14 +107,18 @@ ${winMessage(remainingGuesses)}
       return;
     }
   }
+  lossCount += 1;
   console.log(hangmanStates[6]);
+  console.log(`Total wins: ${winCount}. Total losses: ${lossCount}`);
+
   const loserPlayAgain = prompt.keyInYN(
     `You lose :(.  The word was ${randomWord}.  Would you like to try again? `
   );
   if (loserPlayAgain) {
-    winCount = 0;
+    winStreak = 0;
     game();
-  } else console.log("Thank you for playing! Goodbye");
+  } else
+    console.log(`Thank you for playing ${os.userInfo().username}! Goodbye`);
 };
 
 game();
